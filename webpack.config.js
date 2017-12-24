@@ -1,0 +1,32 @@
+var config = {
+   entry: './index.js',
+   output: {
+      path:'/',
+      filename: 'bundle.js',
+   },
+   devServer: {
+      inline: true,
+      port: 8080
+   },
+   module: {
+     loaders: [
+       {
+         test: /\.jsx?$/,
+         exclude: /node_modules/,
+         loader: 'babel-loader',
+       query: {
+         plugins: ['transform-class-properties'],
+         presets: ['env', 'react']
+            }
+         },
+         {
+          test: /\.css$/,
+          use: [
+            { loader: "style-loader" },
+            { loader: "css-loader" }
+          ]
+        }
+      ]
+   }
+}
+module.exports = config;
