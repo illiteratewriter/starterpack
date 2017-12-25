@@ -15,7 +15,7 @@ var config = {
          exclude: /node_modules/,
          loader: 'babel-loader',
        query: {
-         plugins: ['transform-class-properties'],
+         plugins: ['transform-class-properties', 'transform-object-rest-spread'],
          presets: ['env', 'react']
             }
          },
