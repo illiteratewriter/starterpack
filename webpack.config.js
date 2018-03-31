@@ -1,4 +1,7 @@
+const env = process.env.NODE_ENV
+
 var config = {
+  mode: env || 'development',
    entry: './index.js',
    output: {
       path:'/',
@@ -6,10 +9,10 @@ var config = {
    },
    devServer: {
       inline: true,
-      port: 8080
+      port: 3000
    },
    module: {
-     loaders: [
+     rules: [
        {
          test: /\.jsx?$/,
          exclude: /node_modules/,
