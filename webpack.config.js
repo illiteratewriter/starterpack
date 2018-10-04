@@ -1,35 +1,32 @@
-const env = process.env.NODE_ENV
+const path = require('path');
 
-var config = {
-  mode: env || 'development',
-   entry: './index.js',
-   output: {
-      path:'/',
-      filename: 'bundle.js',
-   },
-   devServer: {
-      inline: true,
-      port: 3000
-   },
-   module: {
-     rules: [
-       {
-         test: /\.jsx?$/,
-         exclude: /node_modules/,
-         loader: 'babel-loader',
-       query: {
-         plugins: ['transform-class-properties', 'transform-object-rest-spread'],
-         presets: ['env', 'react']
+module.exports = {
+    entry: "./index.js",
+    output: {
+        filename: "web/js/bundle.js",
+        sourceMapFilename: "web/js/bundle.map"
+    },
+    resolve: {
+       extensions: [ '.web.js', '.js' ],
+       symlinks: false
+     },
+    module: {
+        rules: [
+            {
+              test: /\.js$/,
+              include:[
+                path.resolve(__dirname, 'index.js'),
+                path.resolve(__dirname, 'src')
+              ],
+              loader: ['babel-loader']
+            },
+            {
+                test:/\.css$/,
+                use:['style-loader','css-loader']
             }
-         },
-         {
-          test: /\.css$/,
-          use: [
-            { loader: "style-loader" },
-            { loader: "css-loader" }
-          ]
-        }
-      ]
-   }
-}
-module.exports = config;
+        ]
+    },
+    devServer: {
+      historyApiFallback: true,
+    },
+};
