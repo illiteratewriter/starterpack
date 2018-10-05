@@ -1,32 +1,42 @@
+const env = process.env.NODE_ENV
 const path = require('path');
 
-module.exports = {
-    entry: "./index.js",
-    output: {
-        filename: "web/js/bundle.js",
-        sourceMapFilename: "web/js/bundle.map"
-    },
-    resolve: {
-       extensions: [ '.web.js', '.js' ],
-       symlinks: false
-     },
-    module: {
-        rules: [
-            {
-              test: /\.js$/,
-              include:[
-                path.resolve(__dirname, 'index.js'),
-                path.resolve(__dirname, 'src')
-              ],
-              loader: ['babel-loader']
-            },
-            {
-                test:/\.css$/,
-                use:['style-loader','css-loader']
+var config = {
+  mode: env || 'development',
+   entry: './index.js',
+   output: {
+      path:'/',
+      filename: 'bundle.js',
+   },
+   devServer: {
+      inline: true,
+      port: 3000
+   },
+   resolve: {
+     extensions: [ '.web.js', '.js' ],
+     symlinks: false
+   },
+   module: {
+     rules: [
+       {
+         test: /\.jsx?$/,
+         include:[
+           path.resolve(__dirname, 'index.js'),
+           path.resolve(__dirname, 'src'),
+         ],
+         loader: 'babel-loader',
+       query: {
+         presets: ['@babel/preset-env', '@babel/preset-react']
             }
-        ]
-    },
-    devServer: {
-      historyApiFallback: true,
-    },
-};
+         },
+         {
+          test: /\.css$/,
+          use: [
+            { loader: "style-loader" },
+            { loader: "css-loader" }
+          ]
+        }
+      ]
+   }
+}
+module.exports = config;
