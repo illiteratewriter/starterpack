@@ -4,7 +4,8 @@ class App extends React.Component {
    render() {
       return (
          <div>
-            Hey React Do! We believe in building from scratch.
+            Hey React Do! We believe in building from scratch. :)
+            
          </div>
       );
    }
